@@ -45,12 +45,12 @@ export const QuizSlide: React.FC = () => {
   if (showResult) {
     return (
       <div className="h-full flex flex-col items-center justify-center p-6 animate-in fade-in zoom-in">
-        <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-md w-full border-t-8 border-red-800">
-          <h2 className="text-3xl font-bold text-stone-800 mb-4 serif">Resultados</h2>
-          <div className="text-6xl font-black text-red-800 mb-4">
+        <div className="bg-white dark:bg-slate-800 p-10 rounded-2xl shadow-2xl text-center max-w-md w-full border-t-8 border-red-600 ring-1 ring-slate-200 dark:ring-slate-700">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 serif">Resultados</h2>
+          <div className="text-6xl font-black text-red-600 dark:text-red-500 mb-4">
             {Math.round((score / QUIZ_QUESTIONS.length) * 100)}%
           </div>
-          <p className="text-stone-600 mb-8">
+          <p className="text-slate-600 dark:text-slate-400 mb-8">
             Has respondido correctamente {score} de {QUIZ_QUESTIONS.length} preguntas.
           </p>
           <Button onClick={resetQuiz} icon={<RefreshCw size={18} />}>
@@ -64,39 +64,39 @@ export const QuizSlide: React.FC = () => {
   return (
     <div className="h-full flex flex-col max-w-3xl mx-auto p-4 md:p-8">
       {/* Progress Bar */}
-      <div className="w-full bg-stone-200 h-2 rounded-full mb-8">
+      <div className="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full mb-8">
         <div 
-          className="bg-red-800 h-2 rounded-full transition-all duration-500"
+          className="bg-red-600 h-2 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(220,38,38,0.5)]"
           style={{ width: `${((currentQIndex + 1) / QUIZ_QUESTIONS.length) * 100}%` }}
         />
       </div>
 
-      <div className="bg-white p-8 rounded-2xl shadow-lg border border-stone-100 flex-1 flex flex-col">
-        <h3 className="text-xl font-bold text-stone-800 mb-6 serif">
+      <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 flex-1 flex flex-col relative overflow-hidden">
+        <h3 className="text-xl font-bold text-slate-400 dark:text-slate-500 mb-6 serif">
           Pregunta {currentQIndex + 1} de {QUIZ_QUESTIONS.length}
         </h3>
         
-        <p className="text-lg text-stone-700 mb-8 font-medium leading-relaxed">
+        <p className="text-lg text-slate-800 dark:text-slate-100 mb-8 font-medium leading-relaxed">
           {currentQ.question}
         </p>
 
         <div className="space-y-3 mb-8 flex-1">
           {currentQ.options.map((option, idx) => {
-            let buttonStyle = "border-stone-200 hover:bg-stone-50 hover:border-stone-300";
+            let buttonStyle = "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-750 hover:border-slate-300 dark:hover:border-slate-600";
             let icon = null;
 
             if (isAnswered) {
               if (idx === currentQ.correctAnswer) {
-                buttonStyle = "bg-green-50 border-green-500 text-green-800";
+                buttonStyle = "bg-green-100 dark:bg-green-900/30 border-green-500 text-green-800 dark:text-green-300";
                 icon = <CheckCircle size={20} />;
               } else if (idx === selectedOption) {
-                buttonStyle = "bg-red-50 border-red-500 text-red-800";
+                buttonStyle = "bg-red-100 dark:bg-red-900/30 border-red-500 text-red-800 dark:text-red-300";
                 icon = <XCircle size={20} />;
               } else {
-                buttonStyle = "border-stone-100 text-stone-400 opacity-50";
+                buttonStyle = "border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-600 opacity-50";
               }
             } else if (selectedOption === idx) {
-              buttonStyle = "bg-red-50 border-red-800 text-red-900 ring-1 ring-red-800";
+              buttonStyle = "bg-slate-100 dark:bg-slate-700 border-red-500 text-slate-900 dark:text-white ring-1 ring-red-500";
             }
 
             return (
@@ -114,9 +114,9 @@ export const QuizSlide: React.FC = () => {
         </div>
 
         {isAnswered && (
-          <div className="bg-stone-100 p-4 rounded-lg mb-6 animate-in fade-in slide-in-from-top-2">
-            <p className="text-sm text-stone-700">
-              <span className="font-bold block mb-1">Explicación:</span>
+          <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mb-6 animate-in fade-in slide-in-from-top-2 border border-slate-200 dark:border-slate-700">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              <span className="font-bold block mb-1 text-slate-900 dark:text-white">Explicación:</span>
               {currentQ.explanation}
             </p>
           </div>
